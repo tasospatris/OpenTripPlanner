@@ -36,5 +36,17 @@ public class OSMNodeTest {
         assertTrue(node.hasTag("capacity"));
         assertEquals(10, node.getCapacity());
     }
+    
+    @Test
+    public void testGetHighway() {
+    	OSMNode node = new OSMNode() ;
+    	assertFalse(node.hasTag("highway")) ;
+    	assertEquals("undefined",node.getHighwayTag()) ;
+    	node.addTag("highway","motorway");
+    	assertTrue(node.hasTag("highway")) ;
+    	assertEquals("motorway",node.getHighwayTag());
+    	
+    }
+    
 
 }

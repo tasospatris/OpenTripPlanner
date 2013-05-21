@@ -57,4 +57,11 @@ public class OSMNode extends OSMWithTags {
         return hasTag("highway") && "elevator".equals(getTag("highway"));
     }
 
+	public String getHighwayTag() {
+		if (this.hasTag("highway"))
+			return "motorway";
+		 else
+			return "undefined";		
+	}
+    
 }
