@@ -1,8 +1,11 @@
 package org.opentripplanner.routing.util;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.opentripplanner.common.MavenVersion;
+import org.opentripplanner.routing.util.RoadSafetySegmentFactory.RoadSafetyPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,23 +15,14 @@ public class RoadSafetySegment implements Serializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(RoadSafetySegment.class);
     
-    private HighwayType highwayType;
+    private RoadSafetyPriority highwayType;
     
-    public RoadSafetySegment(String highwayValue) {
-    	//FIXME Stub constructor
-    	this.highwayType = HighwayType.DEFAULT;    	
+    public RoadSafetySegment(RoadSafetyPriority priority) {
+    	this.highwayType = priority;    	
     }
     
     public double getSafetyFactor() {
-    	return highwayType.weight;
+    	return highwayType.ordinal();
     }
     
-    public enum HighwayType {
-    	DEFAULT(1);
-    	private int weight;
-    	
-    	private HighwayType(int weight) {
-    		this.weight = weight;
-    	}
-    }
 }

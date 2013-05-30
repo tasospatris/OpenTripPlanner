@@ -308,8 +308,9 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
                 weight = costs * ( 1.3333 / speed );
                 time = weight; //treat cost as time, as in the current model it actually is the same (this can be checked for maxSlope == 0)
                 
-                //TODO optimize types  (gui-slider-value*old-weight*computed-safety-weight)
-                weight *= getRoadSafetySegment().getSafetyFactor();              
+                //TODO optimize types  (old-weight/computed_safety_weight*gui-slider-value)
+                if (options.getPedestrianSafety() != 0.0)
+                	 weight += weight*options.getPedestrianSafety()*roadSafetySegment.getSafetyFactor() ;
                 //END OUR CODE
                 
                 

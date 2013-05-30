@@ -8,7 +8,7 @@ public class RoadSafetySegmentTest {
 
 	@Test
 	public void test() {
-		RoadSafetySegment segment = new RoadSafetySegment("foo");
+		RoadSafetySegment segment = RoadSafetySegmentFactory.getInstance().drawSegment("foo");
 		assertEquals(segment.getSafetyFactor(), 1, 0.1);
 	}
 

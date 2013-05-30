@@ -20,6 +20,7 @@ import org.opentripplanner.routing.edgetype.AreaEdgeList;
 import org.opentripplanner.routing.edgetype.PlainStreetEdge;
 import org.opentripplanner.routing.edgetype.StreetTraversalPermission;
 import org.opentripplanner.routing.util.RoadSafetySegment;
+import org.opentripplanner.routing.util.RoadSafetySegmentFactory;
 import org.opentripplanner.routing.vertextype.IntersectionVertex;
 
 import com.vividsolutions.jts.geom.LineString;
@@ -33,7 +34,7 @@ public class DefaultOSMPlainStreetEdgeFactory implements OSMPlainStreetEdgeFacto
             float carSpeed) {
     		PlainStreetEdge edge = new PlainStreetEdge(startEndpoint, endEndpoint, geometry, name, length, permissions,
                 back, carSpeed);
-    		edge.setRoadSafetySegment(new RoadSafetySegment(way.getHighwayTag()));
+    		edge.setRoadSafetySegment(RoadSafetySegmentFactory.getInstance().drawSegment(way.getHighwayTag()));
     		return edge;
     }
 

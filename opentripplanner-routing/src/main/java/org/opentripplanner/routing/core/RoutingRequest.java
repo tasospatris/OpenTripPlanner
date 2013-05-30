@@ -91,6 +91,9 @@ public class RoutingRequest implements Cloneable, Serializable {
 
     /** The set of characteristics that the user wants to optimize for -- defaults to QUICK, or optimize for transit time. */
     public OptimizeType optimize = OptimizeType.QUICK;
+    
+    /**How important is pedestrian safety for the user -- value between 0-1,defaults to 0 */
+    public double pedestrianSafety = 0 ;    
 
     /** The epoch date/time that the trip should depart (or arrive, for requests where arriveBy is true) */
     public long dateTime = new Date().getTime() / 1000;
