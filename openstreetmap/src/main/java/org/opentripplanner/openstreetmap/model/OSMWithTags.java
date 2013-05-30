@@ -278,6 +278,14 @@ public class OSMWithTags {
         boolean noThruTraffic = "destination".equals(access) || "private".equals(access)
                 || "customers".equals(access) || "delivery".equals(access)
                 || "forestry".equals(access) || "agricultural".equals(access);
-        return noThruTraffic;
-    }
+        return noThruTraffic;        
+     }
+    
+    public String getHighwayTag() {
+		if (this.hasTag("highway"))
+			return this.getTag("highway");
+		 else
+			return "undefined";		
+	}
+    
 }

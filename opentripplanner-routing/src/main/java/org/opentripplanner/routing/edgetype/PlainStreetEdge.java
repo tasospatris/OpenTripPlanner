@@ -36,6 +36,7 @@ import org.opentripplanner.routing.graph.Edge;
 import org.opentripplanner.routing.patch.Alert;
 import org.opentripplanner.routing.util.ElevationProfileSegment;
 import org.opentripplanner.routing.util.ElevationUtils;
+import org.opentripplanner.routing.util.RoadSafetySegment;
 import org.opentripplanner.routing.vertextype.IntersectionVertex;
 import org.opentripplanner.routing.vertextype.StreetVertex;
 import org.slf4j.Logger;
@@ -74,7 +75,10 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
 
     @Getter @Setter
     private StreetTraversalPermission permission;
-
+    
+    @Getter @Setter 
+    private RoadSafetySegment roadSafetySegment ;    
+    
     @Getter @Setter
     private int streetClass = CLASS_OTHERPATH;
     
@@ -92,7 +96,7 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
 
     @Setter
     private boolean hasBogusName;
-
+    
     @Getter @Setter
     private boolean noThruTraffic;
 
@@ -124,6 +128,7 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
 
     @Getter
     public int outAngle;
+    
 
     /**
      * No-arg constructor used only for customization -- do not call this unless you know
@@ -302,6 +307,13 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
                 // for the walkspeed set by the user
                 weight = costs * ( 1.3333 / speed );
                 time = weight; //treat cost as time, as in the current model it actually is the same (this can be checked for maxSlope == 0)
+                
+                //TODO optimize types  (gui-slider-value*old-weight*computed-safety-weight)
+                weight *= getRoadSafetySegment().getSafetyFactor();              
+                //END OUR CODE
+                
+                
+                
                 /*
                 // debug code
                 if(weight > 100){
@@ -309,6 +321,7 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
                     System.out.format("line length: %.1f m, slope: %.3f ---> slope costs: %.1f , weight: %.1f , time (flat):  %.1f %n", length, elevationProfileSegment.getMaxSlope(), costs, weight, timeflat);
                 }
                 */
+                
             }
         }
         if (isStairs()) {

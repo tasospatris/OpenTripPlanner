@@ -124,4 +124,15 @@ public class OSMWithTagsTest {
         o.addTag("access", "private");
         assertTrue(o.isThroughTrafficExplicitlyDisallowed());
     }   
+    @Test
+    public void testGetHighway() {
+    	OSMWithTags tag = new OSMWithTags() ;
+    	assertFalse(tag.hasTag("highway")) ;
+    	assertEquals("undefined",tag.getHighwayTag()) ;
+    	tag.addTag("highway","motorway");
+    	assertTrue(tag.hasTag("highway")) ;
+    	assertEquals("motorway",tag.getHighwayTag());
+    	
+    	
+    }
 }
