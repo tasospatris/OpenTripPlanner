@@ -94,6 +94,9 @@ public abstract class RoutingResource {
     
     /** For bike triangle routing, how much time matters (range 0-1). */            
     @QueryParam("triangleTimeFactor") protected List<Double> triangleTimeFactor;
+    
+    /** Pedestrian safety in walk mode **/
+    @QueryParam("pedestrianSafety") protected List<Double> pedestrianSafety;
 
     /** The set of characteristics that the user wants to optimize for. @See OptimizeType */
     @DefaultValue("QUICK") @QueryParam("optimize") protected List<OptimizeType> optimize;
@@ -246,6 +249,11 @@ public abstract class RoutingResource {
         request.setWalkSpeed(get(walkSpeed, n, request.getWalkSpeed()));
         double bikeSpeedParam = get(bikeSpeed, n, request.getBikeSpeed());
         request.setBikeSpeed(bikeSpeedParam);
+        double pedestrianSafetyParam = get(pedestrianSafety, n, request.getPedestrianSafety());
+        if (pedestrianSafetyParam > 0) {
+        	request.setPedestrianSafety(pedestrianSafetyParam);
+        	LOG.debug("set pedestrian safety " + pedestrianSafetyParam);
+        }
         OptimizeType opt = get(optimize, n, request.getOptimize());
         {
             Double tsafe =  get(triangleSafetyFactor, n, null);

@@ -77,7 +77,7 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
     private StreetTraversalPermission permission;
     
     @Getter @Setter 
-    private RoadSafetySegment roadSafetySegment ;    
+    private RoadSafetySegment roadSafetySegment;    
     
     @Getter @Setter
     private int streetClass = CLASS_OTHERPATH;
@@ -134,21 +134,24 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
      * No-arg constructor used only for customization -- do not call this unless you know
      * what you are doing
      */
-    public PlainStreetEdge() {
+    public PlainStreetEdge() {    	
         super(null, null);
     }
 
     public PlainStreetEdge(StreetVertex v1, StreetVertex v2, LineString geometry, 
             String name, double length,
             StreetTraversalPermission permission, boolean back) {
+    	
         // use a default car speed of ~25 mph for splitter vertices and the like
         this(v1, v2, geometry, name, length, permission, back, 11.2f);
+        LOG.debug("creating plain street edge from first constructor");
     }
 
     public PlainStreetEdge(StreetVertex v1, StreetVertex v2, LineString geometry, 
             String name, double length,
             StreetTraversalPermission permission, boolean back, float carSpeed) {
         super(v1, v2);
+        LOG.debug("creating plain street edge");
         this.geometry = geometry;
         this.length = length;
         this.elevationProfileSegment = new ElevationProfileSegment(length);
@@ -307,22 +310,7 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
                 // for the walkspeed set by the user
                 weight = costs * ( 1.3333 / speed );
                 time = weight; //treat cost as time, as in the current model it actually is the same (this can be checked for maxSlope == 0)
-                
-                //TODO optimize types  (old-weight/computed_safety_weight*gui-slider-value)
-                if (options.getPedestrianSafety() != 0.0)
-                	 weight += weight*options.getPedestrianSafety()*roadSafetySegment.getSafetyFactor() ;
-                //END OUR CODE
-                
-                
-                
-                /*
-                // debug code
-                if(weight > 100){
-                    double timeflat = length / speed;
-                    System.out.format("line length: %.1f m, slope: %.3f ---> slope costs: %.1f , weight: %.1f , time (flat):  %.1f %n", length, elevationProfileSegment.getMaxSlope(), costs, weight, timeflat);
-                }
-                */
-                
+               
             }
         }
         if (isStairs()) {
@@ -392,6 +380,12 @@ public class PlainStreetEdge extends StreetEdge implements Cloneable {
         
         if (traverseMode != TraverseMode.CAR) {
             s1.incrementWalkDistance(length);
+        }
+        
+        if (traverseMode == TraverseMode.WALK) {
+        	System.out.println("test");
+        	LOG.debug("Please print you fucking fuck");
+       	 	weight += weight*options.getPedestrianSafety()*roadSafetySegment.getSafetyFactor();
         }
 
         s1.incrementWeight(weight);

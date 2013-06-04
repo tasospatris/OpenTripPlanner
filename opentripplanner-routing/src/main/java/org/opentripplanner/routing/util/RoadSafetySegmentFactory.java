@@ -31,14 +31,23 @@ public class RoadSafetySegmentFactory {
     private RoadSafetySegmentFactory() {
     	highPriorityValues.add("residential");
     	highPriorityValues.add("service");
+    	highPriorityValues.add("living_street");
+    	highPriorityValues.add("track");
+    	highPriorityValues.add("footway");
     	highPriorityValues.add("unclassified");
+    	
     	lowPriorityValues.add("motorway") ;
     	lowPriorityValues.add("primary");
+    	lowPriorityValues.add("trunk");
+    	lowPriorityValues.add("primary_link");
+    	
     	mediumPriorityValues.add("secondary") ;
     	mediumPriorityValues.add("tertiary") ;
+     	mediumPriorityValues.add("secondary_link") ;
     }
     
     public RoadSafetySegment drawSegment(String highwayValue) {
+    	LOG.debug("creating road safety segment") ;
     	if (highPriorityValues.contains(highwayValue))
     		return new RoadSafetySegment(RoadSafetyPriority.HIGH);
     	else if (mediumPriorityValues.contains(highwayValue))

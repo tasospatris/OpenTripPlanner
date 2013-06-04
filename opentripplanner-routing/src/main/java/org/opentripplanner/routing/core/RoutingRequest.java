@@ -900,6 +900,15 @@ public class RoutingRequest implements Cloneable, Serializable {
         }
         return builder.toString();
     }
+    
+    public double getPedestrianSafety() {
+    	return pedestrianSafety;
+    }
+    
+    public void setPedestrianSafety(double safety) {
+    	this.pedestrianSafety = safety;
+    }
+    
 
     public void setMaxWalkDistance(double maxWalkDistance) {
         if (maxWalkDistance == 0)

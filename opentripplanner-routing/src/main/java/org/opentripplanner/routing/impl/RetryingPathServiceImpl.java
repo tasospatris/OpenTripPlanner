@@ -99,6 +99,7 @@ public class RetryingPathServiceImpl implements PathService {
         double maxWeight = Double.MAX_VALUE;
         double maxWalk = options.getMaxWalkDistance();
         double initialMaxWalk = maxWalk;
+        
         long maxTime = options.isArriveBy() ? 0 : Long.MAX_VALUE;
         RoutingRequest currOptions;
         while (paths.size() < options.numItineraries) {
